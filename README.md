@@ -20,7 +20,7 @@ I developed this tool for my learning of AWS CLI tool. But maybe, it can be usef
 
 Sometimes, you can use the demo site of this application. My test environment is poor, so please don't expect that you can use it usually.
 
-* []()
+* [https://rinco.jp/awscli/](https://rinco.jp/awscli/)
 
 This is an OSS tool, and the original content is not mine. I hope someone will replicate this service. :-)
 
