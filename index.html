@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="utf-8" />
+	<title>SHLT (Simple Help Lookup Tool) : Test Version 2020/07/18</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js" integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <!-- <script src="https://clouduser-08-public-001.s3.jp-tok.cloud-object-storage.appdomain.cloud/awscli.js"></script> -->
+    <script src="awscli.js"></script>
+    <script>
+
+function ac_click(e) {
+    var es = e.trim().split(' ');
+    var target = es.length == 1 ? awscli.children[es[0]] : awscli.children[es[0]].children[es[1]]
+    $("#awscli-title").text('aws ' + e);
+    $("#awscli-target").text(target.text);
+}
+$(document).on("pagecreate", "#main-page", function(e) {
+    $("h1").append(awscli.ver);
+    $("#awscli-count").text(awscli_count_all + ' / ' + awscli_count_all);
+    $( "#awscli-count" ).bind( "click", function() {
+        $('input[data-type="search"]').val("");
+        $('input[data-type="search"]').trigger("keyup");
+    });
+    $("#main-list" ).on("filterablefilter", function(e, data) {
+        var result = $(this).children("li").not(".ui-screen-hidden").length;
+        $("#awscli-count").text(result + ' / ' + awscli_count_all);
+    });
+    $( "#awscli-copy" ).bind( "click", function() {
+        let range = document.createRange();
+        range.selectNodeContents(document.getElementById('awscli-title'));
+        let sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+    });
+});
+</script>
+</head>
+
+<body>
+    <div data-role="page" id="main-page" data-theme="b">
+        <div data-role="header">
+            <h1>SHLT (Simple Help Lookup Tool) for </h1>
+            <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" data-icon="info" data-iconpos="notext" data-direction="reverse" class="ui-btn-left">Info</a>
+		<a href="https://rinco.jp/" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right" data-ajax="false">Home</a>
+        </div>
+        <div role="main" class="ui-content">
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <!-- <div class="ui-bar ui-bar-a" style="height:60px">Block A</div> -->
+                    <ul id="main-list" data-role="listview" data-filter="true" data-filter-placeholder="Search Services/Commands..." data-inset="true">
+<script>
+var awscli_list = [];
+for (var key in awscli.children) {
+    awscli_list.push('<li><a href="#" onclick="ac_click(this.innerHTML);">' + key + '</a></li>');
+    for (var subkey in awscli.children[key].children) {
+        awscli_list.push('<li><a href="#" onclick="ac_click(this.innerHTML);">' + key + ' ' + subkey + '</a></li>');
+    }
+}
+var awscli_count_all = awscli_list.length;
+document.write(awscli_list.join(''));
+</script>
+                    </ul>
+                </div>
+                <div class="ui-block-b">
+                    <a data-role="button" class="ui-btn ui-btn-inline" href="#" id="awscli-count">/</a>
+                    <h2 id="awscli-title" style="display:inline; padding-left:1em;">aws</h2>
+                    <a  id="awscli-copy" href="#" class="ui-btn ui-btn-inline ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a>
+                    <pre id="awscli-target" style="padding-left:1em;"></pre>
+                </div>
+            </div>
+        </div>
+        <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                <div data-role="header" data-theme="a">
+                <h1>Information</h1>
+                </div>
+                <div role="main" class="ui-content">
+                    <h3 class="ui-title">This application is under testing today.</h3>
+                    <p>This is a simple "one day" hack application to demonstrate what I want to use. :-)</p>
+                    <p>My server limit is very low, so if you want to continue to use this app, please download a local version :<br/><br/> <a href="https://rinco.jp/awscli/awscli-help_test.zip">https://rinco.jp/awscli/awscli-help_test.zip</a></p>
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">OK</a>
+                </div>
+         </div>
+         <div data-role="footer" data-position="fixed">
+                <a href="https://twitter.com/yamachan360" data-icon="star">yamachan360 on Twitter</a>
+                <a href="https://github.com/yamachan" data-icon="star">yamachan on GitHub</a>
+            </div>
+        </div>	
+</body>
+</html>
