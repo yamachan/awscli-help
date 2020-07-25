@@ -52,7 +52,7 @@ $(document).on("pagecreate", "#main-page", function(e) {
                 <div class="ui-block-a">
                     <ul id="main-list" data-role="listview" data-filter="true" data-filter-placeholder="Search Services/Commands..." data-inset="true">
 <script>
-var awscli_count_all = awscli.length;
+var awscli_count_all = awscli.children.length;
 document.write(awscli.children.map(s => '<li><a href="#" onclick="ac_click(this.innerHTML);">' + s + '</a></li>').join(''));
 </script>
                     </ul>
