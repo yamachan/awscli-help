@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# for this repo
+/html/*.html
+!/html/index.html

@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
     <script src="https://code.jquery.com/jquery-1.11.1.min.js" integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-    <!-- <script src="https://clouduser-08-public-001.s3.jp-tok.cloud-object-storage.appdomain.cloud/awscli.js"></script> -->
     <script src="awscli.js"></script>
     <script>
 
 function ac_click(e) {
-    var es = e.trim().split(' ');
-    var target = es.length == 1 ? awscli.children[es[0]] : awscli.children[es[0]].children[es[1]]
     $("#awscli-title").text('aws ' + e);
-    $("#awscli-target").text(target.text);
+    $.get(e.replace(/ /, '_') + '.html', function(data){
+        $("#awscli-target").text(data);
+    });
 }
 $(document).on("pagecreate", "#main-page", function(e) {
     $("h1").append(awscli.ver);
@@ -53,15 +52,8 @@ $(document).on("pagecreate", "#main-page", function(e) {
                 <div class="ui-block-a">
                     <ul id="main-list" data-role="listview" data-filter="true" data-filter-placeholder="Search Services/Commands..." data-inset="true">
 <script>
-var awscli_list = [];
-for (var key in awscli.children) {
-    awscli_list.push('<li><a href="#" onclick="ac_click(this.innerHTML);">' + key + '</a></li>');
-    for (var subkey in awscli.children[key].children) {
-        awscli_list.push('<li><a href="#" onclick="ac_click(this.innerHTML);">' + key + ' ' + subkey + '</a></li>');
-    }
-}
-var awscli_count_all = awscli_list.length;
-document.write(awscli_list.join(''));
+var awscli_count_all = awscli.length;
+document.write(awscli.children.map(s => '<li><a href="#" onclick="ac_click(this.innerHTML);">' + s + '</a></li>').join(''));
 </script>
                     </ul>
                 </div>

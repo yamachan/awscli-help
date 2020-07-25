@@ -1,6 +1,6 @@
 # awscli-help / SHLT for AWS CLI
 
-ver 1.00 - 2020/07/18
+ver 1.01 - 2020/07/25
 
 This is a simple web application for AWS CLI users to lookup its help contents.
 
@@ -47,7 +47,23 @@ node app.js awscli.js
 
 Before this, you can delete or rename the ``awscli.js`` file. In this case, this tool re-create the help file from scratch.
 
-## Future plan
+These local help texts are also useful with text search tools, like fgrep. :-)
+
+### Ajax mode (from ver 1.01)
+
+To reduce the network traffic, I added one more simple tool to convert one big JSON file into small text files. This GitHub repo doesn't include these small files. If you want to use it, please run locally:
+
+```
+node app.js awscli.js html
+```
+
+You can find a set of web site files in ``html`` folder. Please upload it (or run the local server, like webserv in it), then access the site.
+
+I updated my test page with this function.
+
+* [https://rinco.jp/awscli/](https://rinco.jp/awscli/)
+
+## Future plan?
 
 I had developed these tools in a day, so I have lots of items which I want to use.
 
@@ -56,3 +72,9 @@ I had developed these tools in a day, so I have lots of items which I want to us
 * (OR) dynamic download (locally exec AWS-CLI command) to get detailed help contents - It means the tool will have a list of command names at first
 * Translation - I know some translation services (APIs) on cloud, so I want to translate (and cache) English help text to our local languages automatically.
 
+# Update log
+
+| version | update | memo |
+| --- | --- | --- | 
+| ver 1.00 | 2020/07/18 | First version. Simply dump tool's help into one large json file. |
+| ver 1.01 | 2020/07/25 | Add a app-html tool and SPA application with Ajax mode to reduce the network traffic. |

@@ -2,16 +2,14 @@
 const fs = require('fs');
 const { execSync } = require('child_process');
 const help2obj = require('./help2obj.js');
+const config = require('./config.js');
 
-const app_version = '1.00';
-const app_update = '2020-07-18';
-const app_repository = 'github.com/yamachan/awscli-help';
 if (process.argv.length !== 3) {
-    console.log('app.js (ver' + [app_version, app_update, app_repository].join(', ') + ')');
+    console.log('app.js (ver' + config.get().join(', ') + ')');
     console.log('\tCreate or update help contents of aws-cli tool as a JSON/JavaScript file.');
-    console.log('\tby Toshio Yamashita (@yamachan360)');
-    console.log('\n\tnode app.js [JSON/JS file]')
-    console.log('\n\tnode app.js awscli.js')
+    console.log('\tby ' + config.app_author);
+    console.log('\n\tnode app.js [JSON/JS file]');
+    console.log('\tnode app.js awscli.js');
     return;
 }
 const json_file = process.argv[2];
